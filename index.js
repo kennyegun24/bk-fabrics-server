@@ -4,6 +4,7 @@ const app = express();
 const bodyParser = require("body-parser");
 const paymentCheckout = require("./routes/payment");
 const dotenv = require("dotenv");
+const product = require("./routes/product");
 dotenv.config();
 app.use(bodyParser.json());
 // app.use(express.json())
@@ -16,6 +17,7 @@ app.use(
 const mongoDB_key = process.env.MONGO_KEY;
 
 app.use("/api/payment", paymentCheckout);
+app.use("/api/product", product);
 
 app.listen(4000, () => {
   console.log("server is running");
