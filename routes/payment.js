@@ -1,4 +1,6 @@
 const router = require("express").Router();
+const client_sec = process.env.STRIPE_KEY;
+const stripe = require("stripe")(client_sec);
 
 router.post("/create-checkout-session", async (req, res) => {
   const { products } = req.body;

@@ -13,9 +13,7 @@ app.use(
   })
 );
 
-const client_sec = process.env.STRIPE_KEY;
-
-const stripe = require("stripe")(client_sec);
+const mongoDB_key = process.env.MONGO_KEY;
 
 app.use("/api/payment", paymentCheckout);
 
