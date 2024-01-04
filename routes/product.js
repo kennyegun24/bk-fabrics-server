@@ -76,7 +76,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.post("/rate", async (req, res) => {
+router.post("/rate", verifyTokenAndAuthz, async (req, res) => {
   try {
     const { product_id, rating } = req.body;
     const product = await Product.findById(product_id);
