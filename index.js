@@ -6,6 +6,7 @@ const paymentCheckout = require("./routes/payment");
 const dotenv = require("dotenv");
 const product = require("./routes/product");
 const categories = require("./routes/categories");
+const authentication = require("./routes/auth");
 const mongoose = require("mongoose");
 
 dotenv.config();
@@ -24,6 +25,7 @@ mongoose
   .then(() => console.log("DB CONNECTED"))
   .catch((err) => console.log(err));
 
+app.use("/api/auth", authentication);
 app.use("/api/payment", paymentCheckout);
 app.use("/api/product", product);
 app.use("/api/categories", categories);
