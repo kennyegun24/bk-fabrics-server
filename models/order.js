@@ -16,4 +16,4 @@ const orderSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("products", orderSchema);
+module.exports = mongoose.model("orders", orderSchema);
