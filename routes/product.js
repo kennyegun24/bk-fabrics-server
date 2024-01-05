@@ -47,6 +47,7 @@ router.delete("/delete/:id", verifyAdminToken, async (req, res) => {
 // VIEW ALL PRODUCTS
 router.get("/all", async (req, res) => {
   const newProductQuery = req.query.new;
+  const topRated = req.query.top_rated;
   const pageNumber = req.query.page || 0;
   const perPage = 10;
   try {
@@ -54,6 +55,8 @@ router.get("/all", async (req, res) => {
 
     if (newProductQuery) {
       products = await Product.find().sort({ createdAt: -1 }).limit(5);
+    } else if (topRated) {
+      products = await Product.find().sort({ "rating.ratings": -1 }).limit(5);
     } else {
       // GET ALL PRODUCTS WITH PAGINATION FUNCTIONALITY
       products = await Product.find()
