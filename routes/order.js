@@ -3,7 +3,7 @@ const Order = require("../models/order");
 const Product = require("../models/product");
 const { verifyTokenAndAuthz, verifyAdminToken } = require("./verifyToken");
 
-router.post("/", async (req, res) => {
+router.post("/", verifyTokenAndAuthz, async (req, res) => {
   try {
     let prods = [];
     let amount = 0;
