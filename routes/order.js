@@ -1,9 +1,13 @@
 const router = require("express").Router();
 const Order = require("../models/order");
 const Product = require("../models/product");
-const { verifyTokenAndAuthz, verifyAdminToken } = require("./verifyToken");
+const {
+  verifyTokenAndAuthz,
+  verifyAdminToken,
+  verifyToken,
+} = require("./verifyToken");
 
-router.post("/", verifyTokenAndAuthz, async (req, res) => {
+router.post("/", verifyToken, async (req, res) => {
   try {
     let prods = [];
     let amount = 0;
@@ -28,6 +32,13 @@ router.post("/", verifyTokenAndAuthz, async (req, res) => {
       userId: req.body.userId,
       address: req.body.address,
       products: prods,
+      postalCode: req.body.postalCode,
+      phoneNumber: req.body.phoneNumber,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      country: req.body.country,
+      city: req.body.city,
+      state: req.body.state,
       amount,
     });
     await newOrder.save();
