@@ -50,11 +50,12 @@ router.post("/", verifyToken, async (req, res) => {
 });
 
 router.put("/update/:id", verifyAdminToken, async (req, res) => {
+  console.log(req.body.order_id);
   try {
-    const newOrder = Order.findByIdAndUpdate(
+    const newOrder = await Order.findByIdAndUpdate(
       req.body.order_id,
       {
-        $set: req.body,
+        $set: { ...req.body },
       },
       { new: true }
     );
@@ -64,12 +65,23 @@ router.put("/update/:id", verifyAdminToken, async (req, res) => {
   }
 });
 
-router.get("/all", verifyAdminToken, (req, res) => {
+router.get("/all", verifyAdminToken, async (req, res) => {
   try {
-    const allOrders = Order.find();
-    return res.status(201).json(allOrders);
+    const allOrders = await Order.find();
+    return res.status(200).json(allOrders);
   } catch (error) {
+    console.log(error);
     return res.status(500).json(error);
+  }
+});
+
+// GET ONE ORDER
+router.get("/:id", async (req, res) => {
+  try {
+    const findOrder = await Order.findById(req.params.id);
+    res.status(200).json(findOrder);
+  } catch (error) {
+    res.status(500).json("Something went wrong");
   }
 });
 

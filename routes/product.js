@@ -38,7 +38,7 @@ router.put("/update/:id", verifyAdminToken, async (req, res) => {
 router.delete("/delete/:id", verifyAdminToken, async (req, res) => {
   try {
     const updateProduct = await Product.findByIdAndDelete(req.params.id);
-    res.status(201).json("Item deleted");
+    res.status(200).json("Item deleted");
   } catch (error) {
     res.status(500).json("Something went wrong");
   }
@@ -53,7 +53,7 @@ router.get("/all", async (req, res) => {
   const perPage = 10;
   try {
     let products;
-
+    const totalRows = await Product.countDocuments();
     if (newProductQuery) {
       products = await Product.find().sort({ createdAt: -1 }).limit(5);
     } else if (topRated) {
@@ -66,6 +66,18 @@ router.get("/all", async (req, res) => {
         .skip(pageNumber * perPage)
         .limit(perPage);
     }
+    return res.status(200).json({ data: products, totalRows });
+  } catch (error) {
+    return res.status(500).json("Something went wrong");
+  }
+});
+
+// VIEW ALL PRODUCTS FOR ADMIN
+router.get("/all/admin", verifyAdminToken, async (req, res) => {
+  try {
+    // GET ALL PRODUCTS WITH PAGINATION FUNCTIONALITY
+    const products = await Product.find();
+
     return res.status(200).json(products);
   } catch (error) {
     return res.status(500).json("Something went wrong");
