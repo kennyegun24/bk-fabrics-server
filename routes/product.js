@@ -98,7 +98,7 @@ router.post("/rate", verifyTokenAndAuthz, async (req, res) => {
   try {
     const { product_id, rating } = req.body;
     const product = await Product.findById(product_id);
-
+    console.log(req.body);
     if (!product) {
       return res.status(404).json("Product not found");
     }

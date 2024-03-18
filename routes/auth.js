@@ -31,28 +31,35 @@ router.post("/register", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
+  console.log(req.body);
   try {
     const findUser = await User.findOne({ email: req.body.email });
-    const decryptPassword = CryptoJs.AES.decrypt(
-      findUser.password,
-      process.env.CRYPTO_JS_SEC
-    );
-    const password = decryptPassword.toString(CryptoJs.enc.Utf8);
-    if (password === req.body.password) {
-      const { password, ...others } = findUser._doc;
-      const access_token = jwt.sign(
-        {
-          id: findUser._id,
-          is_admin: findUser.is_admin,
-        },
-        process.env.JWT_KEY,
-        { expiresIn: "3d" }
+    console.log(findUser);
+    if (findUser) {
+      const decryptPassword = CryptoJs.AES.decrypt(
+        findUser.password,
+        process.env.CRYPTO_JS_SEC
       );
-      return res.status(200).json({ ...others, access_token });
+      const password = decryptPassword.toString(CryptoJs.enc.Utf8);
+      if (password === req.body.password) {
+        const { password, ...others } = findUser._doc;
+        const access_token = jwt.sign(
+          {
+            id: findUser._id,
+            is_admin: findUser.is_admin,
+          },
+          process.env.JWT_KEY,
+          { expiresIn: "3d" }
+        );
+        return res.status(200).json({ ...others, access_token });
+      } else {
+        return res.status(401).json("Wrong creadentials");
+      }
     } else {
-      return res.status(401).json("Wrong creadentials");
+      return res.status(401).json("Account does not exist");
     }
   } catch (error) {
+    console.log(error);
     return res.status(500).json(error);
   }
 });
