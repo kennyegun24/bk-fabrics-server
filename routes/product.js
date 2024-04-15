@@ -55,7 +55,7 @@ router.get("/all", async (req, res) => {
     let products;
     const totalRows = await Product.countDocuments();
     if (newProductQuery) {
-      products = await Product.find().sort({ createdAt: -1 }).limit(5);
+      products = await Product.find().sort({ createdAt: -1 }).limit(10);
     } else if (topRated) {
       products = await Product.find().sort({ "rating.ratings": -1 }).limit(5);
     } else if (mostSold) {
