@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 // app.use(express.json())
 app.use(
   cors({
-    origin: "https://bk-fabrics.netlify.app/",
+    origin: "*",
   })
 );
 
