@@ -121,4 +121,15 @@ router.post("/rate", verifyTokenAndAuthz, async (req, res) => {
   }
 });
 
+router.get("/search/:param", async (req, res) => {
+  try {
+    let data = await Product.find({
+      $or: [{ product_name: { $regex: req.params.param } }],
+    });
+    res.send(data).status(200);
+  } catch (error) {
+    res.status(500).send("Something went wrong");
+  }
+});
+
 module.exports = router;

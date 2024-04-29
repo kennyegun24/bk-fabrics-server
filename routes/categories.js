@@ -22,9 +22,11 @@ router.get("/all", async (req, res) => {
       return res.status(200).json(categoryProduct);
     } else {
       const categories = await Product.distinct("categories");
+      console.log(categories);
       return res.json(categories);
     }
   } catch (err) {
+    console.log(err);
     return res.status(500).json({ message: err.message });
   }
 });
