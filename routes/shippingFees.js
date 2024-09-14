@@ -54,9 +54,9 @@ router.get("/get-fee", async (req, res) => {
     const countryData = await ShippingFee.findOne({ country });
 
     if (!countryData) {
-      return res.status(404).json({
-        success: false,
-        message: `Shipping fees for ${country} not found.`,
+      return res.status(200).json({
+        success: true,
+        shippingFee: 0,
       });
     }
 
@@ -66,9 +66,9 @@ router.get("/get-fee", async (req, res) => {
     );
 
     if (!stateData) {
-      return res.status(404).json({
-        success: false,
-        message: `Shipping fee for state ${state} in ${country} not found.`,
+      return res.status(200).json({
+        success: true,
+        shippingFee: 0,
       });
     }
 
