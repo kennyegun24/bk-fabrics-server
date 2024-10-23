@@ -74,6 +74,7 @@ router.get("/all", async (req, res) => {
 
 // VIEW ALL PRODUCTS FOR ADMIN
 router.get("/all/admin", verifyAdminToken, async (req, res) => {
+  console.log("first");
   try {
     // GET ALL PRODUCTS WITH PAGINATION FUNCTIONALITY
     const products = await Product.find();

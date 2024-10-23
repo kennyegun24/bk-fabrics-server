@@ -61,6 +61,7 @@ router.get("/users", verifyAdminToken, async (req, res) => {
 
 // get all users
 router.get("/", verifyAdminToken, async (req, res) => {
+  console.log("all users");
   try {
     const users = await User.find();
     res.status(200).json(users);

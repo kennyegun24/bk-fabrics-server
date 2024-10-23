@@ -10,6 +10,9 @@ const authentication = require("./routes/auth");
 const orders = require("./routes/order");
 const stats = require("./routes/stats");
 const shippingFees = require("./routes/shippingFees");
+const dashboard = require("./routes/dashboard");
+const delivery_stats = require("./routes/delivery_stats");
+const order_graphs = require("./routes/order_graphs");
 const mongoose = require("mongoose");
 
 dotenv.config();
@@ -35,7 +38,9 @@ app.use("/api/categories", categories);
 app.use("/api/orders", orders);
 app.use("/api/stats", stats);
 app.use("/api/shipping", shippingFees);
-
+app.use("/api/dashboard", dashboard);
+app.use("/api/delivery", delivery_stats);
+app.use("/api/order_graphs", order_graphs);
 app.listen(4000, () => {
   console.log("server is running");
 });
