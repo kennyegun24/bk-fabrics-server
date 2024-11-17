@@ -150,7 +150,7 @@ router.get("/stats", async (req, res) => {
       totalSales: formatDouble(totalSales[0]?.totalSales || 0),
       dashboardSalesCards: [
         {
-          sales: `$ ${formatDouble(dailyStats)}`,
+          sales: `₵ ${formatDouble(dailyStats)}`,
           prevText: `  You made ${formatDouble(
             dailyStats - prevDailyStats
           )} from the previous day. ${actualDayPerc.toFixed(2)}%`,
@@ -158,7 +158,7 @@ router.get("/stats", async (req, res) => {
           percentageDifference: dayPerc,
         },
         {
-          sales: `$ ${monthlyStats}`,
+          sales: `₵ ${monthlyStats}`,
           prevText: `  You made ${formatDouble(
             monthlyStats - prevMonthlyStats
           )} from the previous month. ${actualMonthPerc.toFixed(2)}%`,
@@ -166,7 +166,7 @@ router.get("/stats", async (req, res) => {
           percentageDifference: monthPerc,
         },
         {
-          sales: `$ ${yearlyStats}`,
+          sales: `₵ ${yearlyStats}`,
           prevText: `  You made ${formatDouble(
             yearlyStats - prevYearlyStats
           )} from the previous year. ${actualYearPerc.toFixed(2)}%`,
